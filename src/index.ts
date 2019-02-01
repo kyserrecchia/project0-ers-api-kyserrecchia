@@ -39,12 +39,25 @@ app.use((req, resp, next) => {
   next();
 });
 
-app.use('/auth', authRouter);
-app.use('/users', userRouter);
+// app.use('/auth', authRouter);
+// app.use('/users', userRouter);
 
-// app.get('/users', (req, res) => {
-//   res.send('here are your users');
-// })
+app.get('/', (req, res) => {
+    res.redirect('/login');
+});
+
+app.get('/login', (req, res) => {
+    res.sendFile((__dirname + '/views/login.html'));
+});
+
+app.get('/index', (req, res) => {
+    res.sendFile((__dirname + '/views/index.html'));
+});
+
+
+app.get('/users', (req, res) => {
+  res.send('here are your users');
+});
 
 // app.post('/users', (req, res) => {
 //   const user = req.body;
