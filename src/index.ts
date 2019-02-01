@@ -6,6 +6,7 @@ import { authRouter } from './routers/auth.router';
 import bodyParser from 'body-parser';
 import { request } from 'http';
 import { authMiddleware } from './middleware/auth.middleware';
+import { sessMiddleware } from './middleware/sess.middleware';
 
 const app = express();
 
@@ -43,57 +44,11 @@ app.use((req, resp, next) => {
   next();
 });
 
-// app.use('/auth', authRouter);
-// app.use('/users', userRouter);
-
-// app.get('/', (req, res) => {
-//     res.redirect('/login');
-// });
-
 app.use('/', authRouter);
 
-// app.get('/login', (req, res) => {
-//     res.sendFile((__dirname + '/views/login.html'));
-// });
-
-// app.get('/login',  [
-//     authMiddleware,
-//     async (req, res) => {
-//         try {
-//            await res.sendFile((__dirname + '/views/login.html'));
-//         } catch (err) {
-//         res.sendStatus(500);
-//         }
-//     }
-// ]);
-
-app.post('/login', (req, res) => {
-    console.log(req.body);
-    res.redirect('/index');
-});
-
-app.get('/index', (req, res) => {
-    res.sendFile((__dirname + '/views/index.html'));
-});
+app.get('/', sessMiddleware);
 
 
-app.get('/users', (req, res) => {
-  res.send('here are your users');
-});
-
-// app.post('/users', (req, res) => {
-//   const user = req.body;
-//   console.log(user)
-//   res.sendStatus(201);
-// })
-
-// app.get('/pokemon', (req, res) => {
-//   res.send('here are your pokemon');
-// })
-
-app.get('/pokemon-moves', (req, res) => {
-  res.send('here are all the available pokemon moves');
-});
 
 app.listen(3000);
 console.log('application started on port: 3000');

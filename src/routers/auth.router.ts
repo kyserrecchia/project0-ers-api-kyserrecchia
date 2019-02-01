@@ -6,11 +6,8 @@ export const authRouter = express.Router();
 const dirString = __dirname;
 const srcDir = dirString.substring(0, dirString.length - 7);
 
-authRouter.get('/', (req, res) => {
-    res.redirect('/login');
-});
-
 authRouter.get('/login', (req, res) => {
+    console.log('heyo');
     res.sendFile(`${srcDir}/views/login.html`);
 });
 
