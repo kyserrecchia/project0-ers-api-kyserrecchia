@@ -5,4 +5,4 @@ export function authMiddleware(req, res, next) {
     } else {
       res.sendStatus(401);
     }
-  }
+}

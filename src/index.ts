@@ -41,7 +41,6 @@ app.use((req, resp, next) => {
 
 app.use('/auth', authRouter);
 app.use('/users', userRouter);
-app.use('/pokemon', pokemonRouter);
 
 // app.get('/users', (req, res) => {
 //   res.send('here are your users');
