@@ -2,13 +2,15 @@ import express from 'express';
 // import { userRouter } from './routers/user.router';
 // import { pokemonRouter } from './routers/pokemon.router';
 import session from 'express-session';
-// import { authRouter } from './routers/auth.router';
+import { authRouter } from './routers/auth.router';
 import bodyParser from 'body-parser';
+import { request } from 'http';
 
 const app = express();
 
 // set up body parser to convert json body to js object and attach to req
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 
 // create logging middleware
 app.use((req, res, next) => {
@@ -48,6 +50,11 @@ app.get('/', (req, res) => {
 
 app.get('/login', (req, res) => {
     res.sendFile((__dirname + '/views/login.html'));
+});
+
+app.post('/login', (req, res) => {
+    console.log(req.body);
+    res.redirect('/index');
 });
 
 app.get('/index', (req, res) => {
