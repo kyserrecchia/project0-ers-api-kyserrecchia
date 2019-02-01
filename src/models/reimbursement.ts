@@ -10,8 +10,8 @@ export class Reimbursement {
     dateResolved: number; // not null
     description: string; // not null
     resolver: User; // foreign key -> User
-    status: ReimbursementStatus; // foreign ey -> ReimbursementStatus, not null
-    type: ReimbursementType; // foreign key -> ReimbursementType
+    status: number; // foreign ey -> ReimbursementStatus, not null
+    type: number; // foreign key -> ReimbursementType
 
     constructor(reimbursementId, author, amount, dateSubmitted, dateResolved, description, resolver, status, type) {
         this.reimbursementId = reimbursementId;

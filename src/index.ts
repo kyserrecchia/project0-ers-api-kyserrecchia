@@ -5,11 +5,13 @@ import session from 'express-session';
 import { authRouter } from './routers/auth.router';
 import bodyParser from 'body-parser';
 import { request } from 'http';
+import { authMiddleware } from './middleware/auth.middleware';
 
 const app = express();
 
 // set up body parser to convert json body to js object and attach to req
 app.use(bodyParser.json());
+// set up body parser to expose body to server on post requests
 app.use(bodyParser.urlencoded({extended: true}));
 
 // create logging middleware
@@ -44,13 +46,26 @@ app.use((req, resp, next) => {
 // app.use('/auth', authRouter);
 // app.use('/users', userRouter);
 
-app.get('/', (req, res) => {
-    res.redirect('/login');
-});
+// app.get('/', (req, res) => {
+//     res.redirect('/login');
+// });
 
-app.get('/login', (req, res) => {
-    res.sendFile((__dirname + '/views/login.html'));
-});
+app.use('/', authRouter);
+
+// app.get('/login', (req, res) => {
+//     res.sendFile((__dirname + '/views/login.html'));
+// });
+
+// app.get('/login',  [
+//     authMiddleware,
+//     async (req, res) => {
+//         try {
+//            await res.sendFile((__dirname + '/views/login.html'));
+//         } catch (err) {
+//         res.sendStatus(500);
+//         }
+//     }
+// ]);
 
 app.post('/login', (req, res) => {
     console.log(req.body);
