@@ -1,13 +1,12 @@
 import express from 'express';
-// import { userRouter } from './routers/user.router';
-// import { pokemonRouter } from './routers/pokemon.router';
 import session from 'express-session';
-import { authRouter } from './routers/auth.router';
+import { authRouter } from './src/routers/auth.router';
 import bodyParser from 'body-parser';
 import { request } from 'http';
-import { authMiddleware } from './middleware/auth.middleware';
+// import { authMiddleware } from './middleware/auth.middleware';
 
 const app = express();
+export const srcDir = __dirname;
 
 // set up body parser to convert json body to js object and attach to req
 app.use(bodyParser.json());
@@ -43,7 +42,12 @@ app.use((req, resp, next) => {
   next();
 });
 
+app.use(express.static(`${__dirname}/views`));
+
 app.use('/', authRouter);
+
 
 app.listen(3000);
 console.log('application started on port: 3000');
+
+
