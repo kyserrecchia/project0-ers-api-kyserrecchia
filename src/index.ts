@@ -6,7 +6,6 @@ import { authRouter } from './routers/auth.router';
 import bodyParser from 'body-parser';
 import { request } from 'http';
 import { authMiddleware } from './middleware/auth.middleware';
-import { sessMiddleware } from './middleware/sess.middleware';
 
 const app = express();
 
@@ -45,10 +44,6 @@ app.use((req, resp, next) => {
 });
 
 app.use('/', authRouter);
-
-app.get('/', sessMiddleware);
-
-
 
 app.listen(3000);
 console.log('application started on port: 3000');
