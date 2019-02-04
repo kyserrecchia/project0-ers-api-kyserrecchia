@@ -6,22 +6,21 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Index</title>
 </head>
-<body>    
-    <h1>Reimbursements</h1>
+<body>
+    <h1>Users</h1>
     <div id="nav">
         <a href=' '>Profile</a>
         <a href='/reimbursements'>Reimbursements</a>
         <% if(user.role === 'admin' || user.role === 'financial manager') { %> 
-        <a href=' '>Users</a>
+        <a href='/users'>Users</a>
         <% }  %> 
         <a href=' '>Logout</a>
     </div>
-    <br>
-    <a href=' '>Submit</a>
-    <a href=' '>My Reimbursements</a>
-    <% if(user.role === 'admin' || user.role === 'financial manager') { %> 
-    <a href='/users'>Users</a>
-    <a href=' '>Status</a>
-    <% }  %> 
+    <ul>
+        <% for (const user in users) { %>
+        <li><%= user %> : <%= users[user].username %></li>    
+        <% } %>
+    </ul>
+  
 </body>
-</html> 
+</html>

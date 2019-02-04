@@ -4,8 +4,10 @@ import express from 'express';
 import session from 'express-session';
 import { authRouter } from './src/routers/auth.router';
 import { reimRouter } from './src/routers/reim.router';
+import { userRouter } from './src/routers/user.router';
 import bodyParser from 'body-parser';
 import { request } from 'http';
+import { authMiddleware } from './src/middleware/auth.middleware';
 // import { authMiddleware } from './middleware/auth.middleware';
 
 const app = express();
@@ -49,7 +51,7 @@ app.use(express.static(`${__dirname}/views`));
 
 app.use('/', authRouter);
 app.use('/reimbursements', reimRouter);
-
+app.use('/users', userRouter);
 
 app.listen(3000);
 console.log('application started on port: 3000');
