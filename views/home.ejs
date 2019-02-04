@@ -7,7 +7,14 @@
     <title>Index</title>
 </head>
 <body>
-    <h1>Home page! We're here!</h1>
-    <p id="role"><%= %></p>
+    <h1>Home</h1>
+    <p id="role">Welcome, <%= user.username %></p>
+    <a href=' '>profile</a>
+    <a href=' '>reimbursements</a>
+    <% if(user.role === 'admin' || user.role === 'financial manager') { %> 
+    <a href=' '>users</a>
+    <% }  %> 
+    <a href=' '>logout</a>
+  
 </body>
-</html> 
+</html>  

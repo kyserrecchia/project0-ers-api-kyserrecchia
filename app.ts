@@ -1,4 +1,6 @@
 import express from 'express';
+// import { userRouter } from './routers/user.router';
+// import { pokemonRouter } from './routers/pokemon.router';
 import session from 'express-session';
 import { authRouter } from './src/routers/auth.router';
 import bodyParser from 'body-parser';
@@ -49,5 +51,7 @@ app.use('/', authRouter);
 
 app.listen(3000);
 console.log('application started on port: 3000');
+
+
 
 

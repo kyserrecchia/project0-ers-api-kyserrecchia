@@ -1,4 +1,5 @@
 import express from 'express';
+import { UserDao } from '../dao/user.dao';
 
 export const authRouter = express.Router();
 
@@ -16,12 +17,21 @@ authRouter.get('/login', (req, res) => {
     res.render(`login.ejs`);
 });
 
+
 // post for log in, then redirected to home page
 authRouter.post('/login', (req, res) => {
-    if (req.body.username === 'kyle' && req.body.password === 'password') {
+
+    if (req.body.username === 'kyle') {
         const user = {
         username: req.body.username,
         role: 'admin'
+        };
+        req.session.user = user;
+        res.redirect('/');
+    } else if (req.body.username === 'adam') {
+        const user = {
+        username: req.body.username,
+        role: 'financial manager'
         };
         req.session.user = user;
         res.redirect('/');
@@ -37,8 +47,9 @@ authRouter.post('/login', (req, res) => {
     }
 });
 
+
 // get request for home page after logged in
 authRouter.get('/', (req, res) => {
     console.log(req.session.user);
-    res.render(`home.ejs`);
+    res.render(`home.ejs`, {user: req.session.user});
 });
