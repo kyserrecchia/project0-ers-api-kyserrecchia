@@ -3,6 +3,7 @@ import express from 'express';
 // import { pokemonRouter } from './routers/pokemon.router';
 import session from 'express-session';
 import { authRouter } from './src/routers/auth.router';
+import { reimRouter } from './src/routers/reim.router';
 import bodyParser from 'body-parser';
 import { request } from 'http';
 // import { authMiddleware } from './middleware/auth.middleware';
@@ -47,6 +48,7 @@ app.use((req, resp, next) => {
 app.use(express.static(`${__dirname}/views`));
 
 app.use('/', authRouter);
+app.use('/reimbursements', reimRouter);
 
 
 app.listen(3000);

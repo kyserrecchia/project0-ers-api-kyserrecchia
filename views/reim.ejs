@@ -6,8 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Index</title>
 </head>
-<body>
-    <h1>Home</h1>
+<body>    
+    <h1>Reimbursements</h1>
     <div id="nav">
         <a href=' '>Profile</a>
         <a href='/reimbursements'>Reimbursements</a>
@@ -16,8 +16,12 @@
         <% }  %> 
         <a href=' '>Logout</a>
     </div>
-    <p id="role">Welcome, <%= user.username %></p>
-
-  
+    <br>
+    <a href=' '>Submit</a>
+    <a href=' '>My Reimbursements</a>
+    <% if(user.role === 'admin' || user.role === 'financial manager') { %> 
+    <a href=' '>Users</a>
+    <a href=' '>Status</a>
+    <% }  %> 
 </body>
-</html>  
+</html> 
