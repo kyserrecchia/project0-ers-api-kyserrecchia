@@ -2,6 +2,34 @@ import { User } from '../models/user';
 import { connectionPool } from '../util/connection-util';
 
 export class UserDao {
+
+
+    async findById(id: number): Promise<User> {
+        const client = await connectionPool.connect();
+        try {
+            const result = await client.query(
+                'SELECT * FROM "user" WHERE userid = $1',
+                [id]
+            );
+            const sqlUser = result.rows[0]; // there should only be 1 record
+            if (sqlUser) {
+                return {
+                    userId: sqlUser.userid,
+                    username: sqlUser.username,
+                    password: '', // don't send back the passwords
+                    firstName: sqlUser.firstname,
+                    lastName: sqlUser.lastname,
+                    email: sqlUser.email,
+                    role: sqlUser.role
+                };
+            } else {
+                return undefined;
+            }
+        } finally {
+            client.release(); // release connection
+        }
+    }
+
     async findAll(): Promise<User[]> {
         const client = await connectionPool.connect();
         try {
@@ -24,15 +52,14 @@ export class UserDao {
         }
     }
 
-    async findById(id: number): Promise<User> {
+    async findByRole(role: number): Promise<User[]> {
         const client = await connectionPool.connect();
         try {
             const result = await client.query(
-                'SELECT * FROM users WHERE user_id = $1',
-                [id]
+                'SELECT * FROM "user" WHERE "role" = $1',
+                [role]
             );
-            const sqlUser = result.rows[0]; // there should only be 1 record
-            if (sqlUser) {
+            return result.rows.map(sqlUser => {
                 return {
                     userId: sqlUser.userid,
                     username: sqlUser.username,
@@ -42,9 +69,7 @@ export class UserDao {
                     email: sqlUser.email,
                     role: sqlUser.role
                 };
-            } else {
-                return undefined;
-            }
+            });
         } finally {
             client.release(); // release connection
         }

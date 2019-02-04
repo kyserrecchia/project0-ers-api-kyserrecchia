@@ -10,3 +10,11 @@ reimRouter.get('/', (req, res) => {
 reimRouter.get('/submit', (req, res) => {
     res.render('submit.ejs', {user: req.session.user});
 });
+
+reimRouter.get('/author', (req, res) => {
+    console.log('shutup');
+});
+
+reimRouter.get('/status', (req, res) => {
+    console.log('shutup');
+});
