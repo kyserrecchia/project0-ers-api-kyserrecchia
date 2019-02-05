@@ -11,13 +11,10 @@
     <div id="nav">
         <a href=' '>Profile</a>
         <a href='/reimbursements'>Reimbursements</a>
-        <% if(user.role.role === 'admin' || user.role.role === 'financial manager') { %> 
-        <a href='/users'>Users</a>
-        <% }  %> 
         <a href=' '>Logout</a>
     </div>
     <p id="role">Welcome, <%= user.username %></p>
 
-  
+    <script src="home.js" type="text/javascript"></script>
 </body>
 </html>  

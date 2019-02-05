@@ -72,3 +72,9 @@ authRouter.get('/', (req, res) => {
     console.log(req.session.user);
     res.render(`home.ejs`, {user: req.session.user});
 });
+
+
+// send user session data
+authRouter.get('/info', (req, res) => {
+    res.json(req.session.user);
+});
