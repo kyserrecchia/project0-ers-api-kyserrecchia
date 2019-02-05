@@ -12,8 +12,6 @@ userRouter.get('', [
     authMiddleware,
     async (req, res) => {
         try {
-            const user = new(UserDao);
-            const users = await user.findAll();
             res.sendFile(`${srcDir}/views/users.html`);
             // res.render('users.ejs', {sessUser: req.session.user, users: users});
         } catch (err) {
@@ -37,6 +35,20 @@ userRouter.get('/userdata', [
     }
 ]);
 
+//////////////////////////////////////////////////
+userRouter.get('/userdatabyid/:id', [
+    authMiddleware,
+    async (req, res) => {
+        try {
+            const user = new(UserDao);
+            const users = await user.findById(+req.params.id);
+            res.json(users);
+        } catch (err) {
+            res.sendStatus(500);
+        }
+    }
+]);
+
 userRouter.get('/:userId', (req, res) => {
-    console.log('shutup');
+    res.sendFile(`${srcDir}/views/userid.html`);
 });

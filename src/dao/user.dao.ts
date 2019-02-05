@@ -3,7 +3,6 @@ import { connectionPool } from '../util/connection-util';
 
 export class UserDao {
 
-
     async findById(id: number): Promise<User> {
         const client = await connectionPool.connect();
         try {
