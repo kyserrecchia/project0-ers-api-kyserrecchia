@@ -10,6 +10,8 @@ import { request } from 'http';
 import { authMiddleware } from './src/middleware/auth.middleware';
 // import { authMiddleware } from './middleware/auth.middleware';
 
+const methodOverride = require('method-override');
+
 const app = express();
 export const srcDir = __dirname;
 
@@ -17,6 +19,14 @@ export const srcDir = __dirname;
 app.use(bodyParser.json());
 // set up body parser to expose body to server on post requests
 app.use(bodyParser.urlencoded({extended: true}));
+
+app.use(methodOverride(function (req, res) {
+    if (req.body && typeof req.body === 'object' && '_method' in req.body) {
+      const method = req.body._method;
+      delete req.body._method;
+      return method;
+    }
+}));
 
 // create logging middleware
 app.use((req, res, next) => {

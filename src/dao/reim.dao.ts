@@ -78,25 +78,22 @@ export class ReimDao {
         }
     }
 
-    async save(user: User): Promise<User> {
+    async submit(
+        author: number,
+        amount: number,
+        description: string,
+        type: number) {
         const client = await connectionPool.connect();
+        const text = `INSERT INTO reimbursement (author, amount, datesubmitted, dateresolved,
+            description, resolver, status, "type")
+            VALUES  (
+                ${author}, ${+amount}, ${Math.round((new Date()).getTime() / 1000)}, 0,
+                '${description}', 4, 1, ${type});`;
+        console.log(text);
         try {
-            const result = await client.query(
-                `INSERT INTO users (username, password, firstname, lastname)
-                    VALUES  ($1, $2, $3, $4)
-                    RETURNING user_id`,
-                [user.username, user.password, user.firstName, user.lastName]
-            );
-            if (result.rows[0]) {
-                const id = result.rows[0].user_id;
-                return {
-                    ...user,
-                    userId: id
-                };
-            } else {
-                return undefined;
-            }
-
+            const result = await client.query(text);
+        } catch (err) {
+            console.log(err.stack);
         } finally {
             client.release(); // release connection
         }

@@ -2,7 +2,7 @@
 
 export function authMiddleware(req, res, next) {
     const user = req.session.user;
-    if (user && user.role === 'admin' || user && user.role === 'financial manager') {
+    if (user.role === 1 || user.role === 2) {
       next();
     } else {
       res.sendStatus(401);

@@ -21,56 +21,48 @@ authRouter.get('/login', (req, res) => {
 // post for log in, then redirected to home page
 authRouter.post('/login', async (req, res) => {
 
-    // let admins = [];
-    // let finMans = [];
-    // let assoc = [];
     let users = [];
     try {
         const user = new(UserDao);
-        // admins = await user.findByRole(1);
-        // finMans = await user.findByRole(2);
-        // assoc = await user.findByRole(3);
         users = await user.findAll();
     } catch (err) {
         res.sendStatus(500);
     }
 
     let isUser = false;
-    let userRole = 0;
+    // let userRole = 0;
     users.forEach(user => {
         // check if valid user
         if (user.username === req.body.username) {
-            userRole = user.role;
+            // userRole = user.role;
             isUser = true;
+            req.session.user = user;
         }
     });
-    console.log(isUser);
-    console.log(userRole);
     if (!isUser) {
         res.sendStatus(401);
-    } else if (userRole === 1) {
-        const user = {
-            username: req.body.username,
-            role: 'admin'
-        };
-        req.session.user = user;
-        res.redirect('/');
-    } else if (userRole === 2) {
-        const user = {
-            username: req.body.username,
-            role: 'financial manager'
-        };
-        req.session.user = user;
-        res.redirect('/');
-    } else if (userRole === 3) {
-        const user = {
-            username: req.body.username,
-            role: 'associate'
-        };
-        req.session.user = user;
-        res.redirect('/');
+    // } else if (userRole === 1) {
+    //     const user = {
+    //         username: req.body.username,
+    //         role: 'admin'
+    //     };
+    //     res.redirect('/');
+    // } else if (userRole === 2) {
+    //     const user = {
+    //         username: req.body.username,
+    //         role: 'financial manager'
+    //     };
+    //     req.session.user = user;
+    //     res.redirect('/');
+    // } else if (userRole === 3) {
+    //     const user = {
+    //         username: req.body.username,
+    //         role: 'associate'
+    //     };
+    //     req.session.user = user;
+    //     res.redirect('/');
     } else {
-        res.sendStatus(401);
+        res.redirect('/');
     }
 });
 

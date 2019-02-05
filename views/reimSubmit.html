@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login Page!</title>
+</head>
+<body>
+    <h1>Submit</h1>
+    <div id="nav">
+        <a href=' '>Profile</a>
+        <a href="/reimbursements"> Reimbursements</a>
+        <a href="">Logout</a>
+    </div>
+    <br>
+    <form action="/reimbursements/submit" method="post">
+        <label for="description">Description</label>
+        <input type="text" name="description" /><br />
+        <label for="amount">Amount</label>
+        <input type="number" step=".01" min=".01" name="amount" /><br />
+        <label for="type">Type</label>  
+        <select name="type">
+            <option name="Lodging" value="1" selected="true">Lodging</option>
+            <option name="Travel" value="2">Travel</option>
+            <option name="Food" value="3">Food</option>
+            <option name="Other" value="4">Other</option>
+        </select>
+        <br>
+        <button type="submit">Submit</button>
+    </form>
+    <br>
+</body>
+</html>

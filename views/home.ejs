@@ -11,7 +11,7 @@
     <div id="nav">
         <a href=' '>Profile</a>
         <a href='/reimbursements'>Reimbursements</a>
-        <% if(user.role === 'admin' || user.role === 'financial manager') { %> 
+        <% if(user.role.role === 'admin' || user.role.role === 'financial manager') { %> 
         <a href='/users'>Users</a>
         <% }  %> 
         <a href=' '>Logout</a>

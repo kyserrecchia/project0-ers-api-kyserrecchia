@@ -23,7 +23,7 @@ reimRouter.get('/reimdata', [
     async (req, res) => {
         try {
             const reim = new(ReimDao);
-            const reims = await reim.findByStatus(1);
+            const reims = await reim.findAll();
             res.json(reims);
         } catch (err) {
             res.sendStatus(500);
@@ -72,4 +72,18 @@ reimRouter.get('/author/userId/:userId', (req, res) => {
     res.sendFile(`${srcDir}/views/reimAuthor.html`);
 });
 
+
+//////////////////////////////////////////
+reimRouter.get('/submit', (req, res) => {
+    res.sendFile(`${srcDir}/views/reimSubmit.html`);
+});
+
+
+reimRouter.post('/submit', (req, res) => {
+    const reim = new(ReimDao);
+    console.log(req.session);
+    reim.submit(req.session.user.userId, req.body.amount,
+        req.body.description, req.body.type);
+    res.redirect('/reimbursements');
+});
 
