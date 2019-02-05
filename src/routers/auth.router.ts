@@ -1,5 +1,6 @@
 import express from 'express';
 import { UserDao } from '../dao/user.dao';
+import { srcDir } from '../../app';
 
 export const authRouter = express.Router();
 
@@ -14,7 +15,7 @@ authRouter.get('/', (req, res, next) => {
 
 // if not logged in, sent here
 authRouter.get('/login', (req, res) => {
-    res.render(`login.ejs`);
+    res.sendFile(`${srcDir}/views/login.html`);
 });
 
 
@@ -70,7 +71,7 @@ authRouter.post('/login', async (req, res) => {
 // get request for home page after logged in
 authRouter.get('/', (req, res) => {
     console.log(req.session.user);
-    res.render(`home.ejs`, {user: req.session.user});
+    res.sendFile(`${srcDir}/views/home.html`);
 });
 
 
