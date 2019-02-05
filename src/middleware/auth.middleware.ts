@@ -8,3 +8,4 @@ export function authMiddleware(req, res, next) {
       res.sendStatus(401);
     }
 }
+

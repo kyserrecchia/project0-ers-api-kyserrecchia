@@ -32,6 +32,16 @@ reimRouter.get('/reimdata', [
 ]);
 
 
+
+///////////////////////////////////////////////////
+
+
+reimRouter.get('/status', (req, res) => {
+    res.sendFile(`${srcDir}/views/reimStatus.html`);
+});
+
+
+
 ///////////////////////////////////////////////////
 // By status
 reimRouter.get('/reimstatus/:statusId', [
@@ -48,7 +58,7 @@ reimRouter.get('/reimstatus/:statusId', [
 ]);
 
 reimRouter.get('/status/:statusId', (req, res) => {
-    res.sendFile(`${srcDir}/views/reimstatus.html`);
+    res.sendFile(`${srcDir}/views/reimByStatus.html`);
 });
 
 

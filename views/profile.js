@@ -1,9 +1,8 @@
 let navBar = document.getElementById('nav');
-let welcomeSess = document.getElementById('welcome');
+let profile = document.getElementById('profile');
 
 fetch('/info').then(function(res) {
     res.json().then(function(userSess) {
-        console.log(userSess);
         // conditionally render navbar based on user role
         if (userSess.role === 1 || userSess.role === 2) {
             let link = document.createElement('a');
@@ -11,8 +10,7 @@ fetch('/info').then(function(res) {
             link.setAttribute('href', '/users');
             navBar.append(link);
         }
-
-        // send welcome to user by first name
-        welcomeSess.innerText = `Welcome, ${userSess.firstName}!`;
+        // set profile route based on user
+        profile.setAttribute('href', `/users/${userSess.userId}`)
       });
 });

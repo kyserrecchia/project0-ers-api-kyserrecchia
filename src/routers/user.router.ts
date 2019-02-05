@@ -36,9 +36,7 @@ userRouter.get('/userdata', [
 ]);
 
 //////////////////////////////////////////////////
-userRouter.get('/userdatabyid/:id', [
-    authMiddleware,
-    async (req, res) => {
+userRouter.get('/userdatabyid/:id', async (req, res) => {
         try {
             const user = new(UserDao);
             const users = await user.findById(+req.params.id);
@@ -46,8 +44,7 @@ userRouter.get('/userdatabyid/:id', [
         } catch (err) {
             res.sendStatus(500);
         }
-    }
-]);
+});
 
 userRouter.get('/:userId', (req, res) => {
     res.sendFile(`${srcDir}/views/userid.html`);
