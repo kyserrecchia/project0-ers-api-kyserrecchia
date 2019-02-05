@@ -27,7 +27,7 @@ authRouter.post('/login', async (req, res) => {
         const user = new(UserDao);
         users = await user.findAll();
     } catch (err) {
-        res.sendStatus(500);
+        res.send(err);
     }
 
     let isUser = false;
