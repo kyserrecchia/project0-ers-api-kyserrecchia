@@ -7,7 +7,7 @@ export class UserDao {
         const client = await connectionPool.connect();
         try {
             const result = await client.query(
-                'SELECT * FROM "user" WHERE userid = $1',
+                'SELECT * FROM "user" inner join "role" on "user"."role"="role".roleid  WHERE "user".userid = $1',
                 [id]
             );
             const sqlUser = result.rows[0]; // there should only be 1 record
@@ -34,6 +34,28 @@ export class UserDao {
         try {
             const result = await client.query(
                 'SELECT * FROM "user"'
+            );
+            return result.rows.map(sqlUser => {
+                return {
+                    userId: sqlUser.userid,
+                    username: sqlUser.username,
+                    password: '', // don't send back the passwords
+                    firstName: sqlUser.firstname,
+                    lastName: sqlUser.lastname,
+                    email: sqlUser.email,
+                    role: sqlUser.role
+                };
+            });
+        } finally {
+            client.release(); // release connection
+        }
+    }
+
+    async findAllWithRole(): Promise<User[]> {
+        const client = await connectionPool.connect();
+        try {
+            const result = await client.query(
+                'SELECT * FROM "user" inner join "role" on "user"."role"="role".roleid'
             );
             return result.rows.map(sqlUser => {
                 return {

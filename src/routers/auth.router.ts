@@ -3,7 +3,7 @@ import { UserDao } from '../dao/user.dao';
 import { srcDir } from '../../app';
 
 export const authRouter = express.Router();
-// test
+
 // check if logged in
 authRouter.get('/', (req, res, next) => {
     if (req.session.user === undefined) {
@@ -27,7 +27,7 @@ authRouter.post('/login', async (req, res) => {
         const user = new(UserDao);
         users = await user.findAll();
     } catch (err) {
-        res.send(err);
+        res.sendStatus(500);
     }
 
     let isUser = false;

@@ -28,7 +28,19 @@ userRouter.get('/userdata', [
             const user = new(UserDao);
             const users = await user.findAll();
             res.json(users);
-            // res.render('users.ejs', {sessUser: req.session.user, users: users});
+        } catch (err) {
+            res.sendStatus(500);
+        }
+    }
+]);
+
+userRouter.get('/userdatawithrole', [
+    authMiddleware,
+    async (req, res) => {
+        try {
+            const user = new(UserDao);
+            const users = await user.findAllWithRole();
+            res.json(users);
         } catch (err) {
             res.sendStatus(500);
         }
